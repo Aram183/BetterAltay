@@ -2379,6 +2379,12 @@ class Player extends Human implements CommandSender, ChunkLoader, IPlayer{
 			$this->xuid = $xuid;
 		}
 
+		//feature added for Specter plugin work's :D
+		if($packet->skipVerification){
+    $this->processLogin();
+    return;
+}
+
 		$identityPublicKey = base64_decode($packet->identityPublicKey, true);
 		if($identityPublicKey === false){
 			//if this is invalid it should have borked VerifyLoginTask
