@@ -2378,6 +2378,11 @@ class Player extends Human implements CommandSender, ChunkLoader, IPlayer{
 			$this->server->getLogger()->debug($this->getName() . " is logged into Xbox Live");
 			$this->xuid = $xuid;
 		}
+        //feature added for Specter plugin :D
+		if($packet->skipVerification){
+    $this->processLogin();
+    return;
+}
 
 		$identityPublicKey = base64_decode($packet->identityPublicKey, true);
 		if($identityPublicKey === false){
