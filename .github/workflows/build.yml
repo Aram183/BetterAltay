@@ -8,24 +8,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-          tools: composer
           coverage: none
 
-      - name: Install dependencies
-        run: composer install --no-dev --prefer-dist --no-interaction
+      - name: Build PHAR
+        run: php -d phar.readonly=0 build/server_phar.php
 
-      - name: Build BetterAltay
-        run: php -dphar.readonly=0 build/server_phar.php
-
-      - name: Upload PHAR
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: BetterAltay
           path: BetterAltay.phar
