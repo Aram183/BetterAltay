@@ -15,16 +15,14 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
+          tools: composer
           coverage: none
 
-      - name: Validate Composer
-        run: composer validate --no-check-publish
-
       - name: Install dependencies
-        run: composer install --no-dev --prefer-dist
+        run: composer install --no-dev --prefer-dist --no-interaction
 
       - name: Build BetterAltay
-        run: php -d phar.readonly=0 build/server_phar.php
+        run: php -dphar.readonly=0 build/server_phar.php
 
       - name: Upload PHAR
         uses: actions/upload-artifact@v4
